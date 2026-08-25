@@ -21,7 +21,6 @@ qa-automation-testsuite/
 ├── tests/
 │   └── test_users.py       # automated test suite
 ├── test-plan.md             # test strategy, scope, and test case design
-├── certificates/            # QA course completion certificates
 ├── requirements.txt         # project dependencies
 └── README.md
 ```
