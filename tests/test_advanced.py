@@ -2,11 +2,11 @@ import requests
 import pytest
 from config import BASE_URL, HEADERS
 
-@pytest.mark.parametrize("user_id", [1,4,6,8,12])
+@pytest.mark.parametrize("user_id", [1,2,3,6,12])
 def test_get_existing_users_returns_200(user_id):
-       """TC20: Every known valid user ID (1-12 range) should return 200
+    """TC20: Every known valid user ID (1-12 range) should return 200
     with matching data. Runs once per user_id in the list above."""
-    response.get(f"{BASE_URL}/users/{user_id}" ,headers= HEADERS)
+    response = requests.get(f"{BASE_URL}/users/{user_id}" ,headers= HEADERS)
     assert response.status_code == 200
     assert response.json()["data"]["id"] == user_id
 
