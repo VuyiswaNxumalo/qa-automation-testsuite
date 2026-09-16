@@ -1,8 +1,11 @@
 # QA Automation Test Suite
 
+[![Run QA Test Suite](https://github.com/VuyiswaNxumalo/qa-automation-testsuite/actions/workflows/tests.yml/badge.svg)](https://github.com/VuyiswaNxumalo/qa-automation-testsuite/actions/workflows/tests.yml)
+![Tests](https://img.shields.io/badge/tests-23%20passing-4ADE80)
+
 Automated API test suite built as my Quality Assurance solo project for WeThinkCode_'s elective specialization program.
 
-This project tests the [ReqRes](https://reqres.in) public REST API, covering functional, negative, and edge-case scenarios across its Users, Registration, and Login endpoints.
+This project tests the [ReqRes](https://reqres.in) public REST API, covering functional, negative, edge-case, parametrized, and chained-workflow scenarios across its Users, Registration, and Login endpoints.
 
 ## 🎯 Project Goal
 
@@ -18,10 +21,17 @@ To demonstrate practical QA skills: designing meaningful test cases, automating 
 
 ```
 qa-automation-testsuite/
+├── .github/
+│   └── workflows/
+│       └── tests.yml         # CI: runs the suite on every push/PR
 ├── tests/
-│   └── test_users.py       # automated test suite
-├── test-plan.md             # test strategy, scope, and test case design
-├── requirements.txt         # project dependencies
+│   ├── config.py             # base URL + auth header (key via env var)
+│   ├── test_users.py         # core CRUD test cases (TC01-TC10)
+│   ├── test_extra_cases.py   # login, pagination, edge cases (TC11-TC19)
+│   └── test_advanced.py      # parametrized + chained workflow (TC20-TC23)
+├── test-plan.md               # test strategy, scope, and findings
+├── certificates/               # QA course completion certificates
+├── requirements.txt            # project dependencies
 └── README.md
 ```
 
@@ -38,20 +48,25 @@ Install dependencies:
 pip install -r requirements.txt
 ```
 
-Run the test suite:
+Set your ReqRes API key (get a free one at [app.reqres.in/api-keys](https://app.reqres.in/api-keys)):
 ```bash
-pytest tests/test_users.py -v
+export REQRES_API_KEY="your_key_here"
+```
+
+Run the full test suite:
+```bash
+pytest tests/ -v
 ```
 
 ## ✅ What's Covered
 
-- **GET** — list users, retrieve single user, handle non-existent user (404)
-- **POST** — create user, register user (valid and invalid payloads)
-- **PUT** — update existing user
-- **DELETE** — remove existing user
-- **Edge cases** — missing fields, invalid data, response time thresholds
+**23 test cases** across four categories:
+- **Functional (CRUD)** — GET, POST, PUT, DELETE across users, registration, and login
+- **Negative** — missing fields, invalid data types, malformed input
+- **Edge cases** — non-existent resources, out-of-range pagination, delayed responses, response time thresholds
+- **Parametrized & chained workflow** — the same test logic run across multiple inputs, plus a full create → update → delete lifecycle test
 
-See [`test-plan.md`](./test-plan.md) for the full test strategy and case-by-case breakdown.
+See [`test-plan.md`](./test-plan.md) for the full test strategy, case-by-case breakdown, and a **Findings & Adaptations** section documenting a real API change discovered and resolved during development.
 
 ## 🐛 Bugs & Findings
 
@@ -67,12 +82,7 @@ A 5–10 minute walkthrough covering the project's design decisions, a live test
 
 Course completion certificates for the QA specialization are available in the [`certificates/`](./certificates) folder, and via [this Google Drive link] *(add link here)*.
 
-## 📌 About This Project
 
-Built as part of my QA elective at [WeThinkCode_](https://www.wethinkcode.co.za/), a tuition-free software engineering school. This project reflects steady, iterative development — see the commit history for the full build process.
-
----
-*Author: Vuyiswa Nxumalo*
 
 # My code:
 WTC-YLZFENXH
